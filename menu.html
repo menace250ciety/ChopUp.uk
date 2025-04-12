@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Chopup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/chopup-logo.png" alt="Chopup Logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="menu.html" class="active"><i class="fas fa-utensils"></i> Menu</a></li>
+            <li><a href="deals.html"><i class="fas fa-percent"></i> Deals</a></li>
+            <li><a href="order.html" class="cart-link"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-map-marker-alt"></i> Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div id="accountDropdown" class="dropdown">
+                <button class="btn-secondary dropdown-toggle" aria-label="Login or create an account"><i class="fas fa-user"></i> Login</button>
+                <div class="dropdown-menu">
+                    <a href="login.html">Login</a>
+                    <a href="create-account.html">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <main class="menu-page">
+        <!-- Search and Filter Section -->
+        <section class="menu-controls">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="menu-search" placeholder="Search dishes...">
+                <button id="clear-search" class="btn-small"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-dropdown">
+                    <button class="filter-btn"><i class="fas fa-filter"></i> Filter <i class="fas fa-chevron-down"></i></button>
+                    <div class="filter-options">
+                        <div class="filter-group">
+                            <h4>Categories</h4>
+                            <label><input type="checkbox" name="category" value="sides" checked> Sides</label>
+                            <label><input type="checkbox" name="category" value="mains" checked> Mains</label>
+                            <label><input type="checkbox" name="category" value="snacks" checked> Snacks</label>
+                            <label><input type="checkbox" name="category" value="protein" checked> Protein</label>
+                            <label><input type="checkbox" name="category" value="soup" checked> Soups</label>
+                            <label><input type="checkbox" name="category" value="stew" checked> Stews</label>
+                            <label><input type="checkbox" name="category" value="swallow" checked> Swallow</label>
+                        </div>
+                        <div class="filter-group">
+                            <h4>Price Range</h4>
+                            <label><input type="checkbox" name="price" value="0-5"> £0 - £5</label>
+                            <label><input type="checkbox" name="price" value="6-10"> £6 - £10</label>
+                            <label><input type="checkbox" name="price" value="11-15"> £11 - £15</label>
+                            <label><input type="checkbox" name="price" value="16+" checked> £16+</label>
+                        </div>
+                        <button id="apply-filters" class="btn-primary">Apply Filters</button>
+                    </div>
+                </div>
+                <button id="reset-filters" class="btn-secondary">Reset</button>
+            </div>
+        </section>
+
+        <!-- Menu Sections -->
+        <section class="menu-sections">
+            <!-- Results Count -->
+            <div class="results-count">
+                <span id="filter-results">All dishes</span>
+            </div>
+            
+            <!-- Menu Items will be dynamically inserted here -->
+            <div id="menu-items-container">
+                <!-- Sides -->
+                <div class="menu-section" data-category="sides">
+                    <h3>Sides</h3>
+                    <div class="menu-grid">
+                        <div class="menu-card" data-price="10">
+                            <img src="images/fried-yam.jpg" alt="Fried Yam and Sauce">
+                            <div class="menu-card-content">
+                                <h4>Fried Yam and Sauce</h4>
+                                <p class="description">Crispy fried yam served with spicy Nigerian sauce</p>
+                                <div class="price-add">
+                                    <p class="price">£10</p>
+                                    <button class="btn-secondary add-to-cart">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- More side items... -->
+                    </div>
+                </div>
+                
+                <!-- Mains -->
+                <div class="menu-section" data-category="mains">
+                    <h3>Mains</h3>
+                    <div class="menu-grid">
+                        <div class="menu-card" data-price="10">
+                            <img src="images/beef-fried-rice.jpg" alt="Beef Fried Rice">
+                            <div class="menu-card-content">
+                                <h4>Beef Fried Rice</h4>
+                                <p class="description">Flavorful fried rice with tender beef pieces</p>
+                                <div class="price-add">
+                                    <p class="price">£10</p>
+                                    <button class="btn-secondary add-to-cart">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- More main items... -->
+                    </div>
+                </div>
+                
+                <!-- Other sections (snacks, protein, soups, stews, swallow) -->
+                <!-- ... -->
+            </div>
+            
+            <!-- No Results Message -->
+            <div id="no-results" class="no-results">
+                <i class="fas fa-utensils"></i>
+                <h3>No dishes found</h3>
+                <p>Try adjusting your search or filters</p>
+                <button id="reset-all" class="btn-primary">Reset All</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Chopup. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

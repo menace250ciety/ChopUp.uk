@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chopup - Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/chopup-logo.png" alt="Chopup Logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+            <li><a href="deals.html"><i class="fas fa-star"></i> Deals</a></li>
+            <li><a href="order.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+            <li><a href="contact.html"><i class="fas fa-map-marker-alt"></i> Contact</a></li>
+        </ul>
+    </nav>
+    <section class="profile-section">
+        <h2>My Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Email:</strong> johndoe@example.com</p>
+            <p><strong>Phone:</strong> +44 123 456 7890</p>
+        </div>
+        <div class="profile-actions">
+            <a href="order-history.html" class="btn-primary">Order History</a>
+            <a href="index.html" class="btn-secondary" id="logout">Logout</a>
+        </div>
+    </section>
+    <footer>
+        <p>© 2024 Chopup. All rights reserved.</p>
+    </footer>
+    <script>
+        // Handle logout
+        document.getElementById("logout").addEventListener("click", () => {
+            alert("You have been logged out!");
+        });
+    </script>
+</body>
+</html>

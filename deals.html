@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chopup's weekly specials and deals - Enjoy authentic Nigerian cuisine at discounted prices">
+    <title>Chopup - Special Offers & Deals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Structured data for deals -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "OfferCatalog",
+      "name": "Weekly Specials",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Efo Riro Feast",
+          "price": "19.99",
+          "priceCurrency": "GBP",
+          "validFrom": "2023-07-01",
+          "validThrough": "2023-07-07"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/chopup-logo.png" alt="Chopup - Nigerian Food Delivery" class="logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+            <li><a href="deals.html"><i class="fas fa-percent"></i> Deals</a></li>
+            <li><a href="order.html" class="cart-link"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="tel:+442079460958" class="btn-secondary"><i class="fas fa-phone"></i> Order Now</a>
+        </div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <main id="main-content">
+        <!-- Mama's Special Hero -->
+        <section class="mamas-special" aria-labelledby="mamas-special-heading">
+            <div class="special-badge">Mama's Special</div>
+            <div class="special-content">
+                <div class="special-details">
+                    <span class="special-label">This Week's Featured Dish</span>
+                    <h1 id="mamas-special-heading">Efo Riro Feast</h1>
+                    <p class="description">Authentic Nigerian spinach stew with assorted meats & fish. Serves 2-3 people.</p>
+                    
+                    <div class="pricing">
+                        <span class="old-price">£24.99</span>
+                        <span class="new-price">£19.99</span>
+                        <span class="discount-badge">20% OFF</span>
+                    </div>
+                    
+                    <div class="countdown-timer">
+                        <p>Offer ends in:</p>
+                        <div class="timer">
+                            <span id="days">02</span>d 
+                            <span id="hours">12</span>h 
+                            <span id="minutes">45</span>m
+                        </div>
+                    </div>
+                    
+                    <div class="special-actions">
+                        <button class="btn-primary" id="add-to-cart-special">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        <a href="#nutrition" class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Nutrition Info
+                        </a>
+                    </div>
+                    
+                    <div class="allergen-info">
+                        <p><i class="fas fa-allergies"></i> Contains: Fish, Peanuts. Can be made vegetarian.</p>
+                    </div>
+                </div>
+                
+                <div class="special-image">
+                    <img src="images/efo-riro.jpg" alt="Efo Riro with assorted meats and fish" loading="lazy">
+                    <div class="image-badges">
+                        <span class="veg-option"><i class="fas fa-leaf"></i> Veg Option</span>
+                        <span class="spicy-level"><i class="fas fa-pepper-hot"></i> Medium Spice</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Deals Grid -->
+        <section class="all-deals" aria-labelledby="deals-heading">
+            <header class="section-header">
+                <h2 id="deals-heading"><i class="fas fa-tags"></i> More Great Deals</h2>
+                <p class="section-subtitle">Limited-time offers - Prices valid until Sunday</p>
+            </header>
+            
+            <div class="deals-grid">
+                <!-- Deal 1 -->
+                <article class="deal-card" data-deal-id="jollof-pack">
+                    <div class="deal-header">
+                        <span class="deal-tag">Combo Deal</span>
+                        <span class="deal-saves">Save £5.01</span>
+                    </div>
+                    <img src="images/jollof-combo.jpg" alt="Jollof Rice Combo Meal" loading="lazy">
+                    <div class="deal-body">
+                        <h3>Jollof Party Pack</h3>
+                        <p class="description">Large jollof rice with chicken, fried plantains, and 2 soft drinks</p>
+                        
+                        <div class="deal-meta">
+                            <span><i class="fas fa-users"></i> Serves 3-4</span>
+                            <span><i class="fas fa-clock"></i> Ready in 30 min</span>
+                        </div>
+                        
+                        <div class="pricing">
+                            <span class="old-price">£32.00</span>
+                            <span class="new-price">£26.99</span>
+                        </div>
+                        
+                        <button class="btn-primary add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        
+                        <a href="menu.html#jollof" class="deal-link">View full details</a>
+                    </div>
+                </article>
+                
+                <!-- Deal 2 -->
+                <article class="deal-card highlight" data-deal-id="family-feast">
+                    <div class="deal-header">
+                        <span class="deal-tag">Family Meal</span>
+                        <span class="deal-saves">Save £8.01</span>
+                    </div>
+                    <img src="images/family-meal.jpg" alt="Family Meal Deal" loading="lazy">
+                    <div class="deal-body">
+                        <h3>Family Feast</h3>
+                        <p class="description">2 main dishes, 2 sides, and 4 drinks - perfect for gatherings</p>
+                        
+                        <div class="deal-meta">
+                            <span><i class="fas fa-users"></i> Serves 4-5</span>
+                            <span><i class="fas fa-clock"></i> Ready in 45 min</span>
+                        </div>
+                        
+                        <div class="pricing">
+                            <span class="old-price">£45.00</span>
+                            <span class="new-price">£36.99</span>
+                        </div>
+                        
+                        <button class="btn-primary add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        
+                        <a href="menu.html#family-meals" class="deal-link">View full details</a>
+                    </div>
+                </article>
+                
+                <!-- Deal 3 -->
+                <article class="deal-card" data-deal-id="lunch-special">
+                    <div class="deal-header">
+                        <span class="deal-tag">Weekday Special</span>
+                        <span class="deal-saves">Save £2.51</span>
+                    </div>
+                    <img src="images/lunch-special.jpg" alt="Lunch Special Deal" loading="lazy">
+                    <div class="deal-body">
+                        <h3>Lunch Express</h3>
+                        <p class="description">Jollof rice with chicken or veggie option + drink (Mon-Thu only)</p>
+                        
+                        <div class="deal-meta">
+                            <span><i class="fas fa-clock"></i> Ready in 15 min</span>
+                            <span><i class="fas fa-calendar"></i> Mon-Thu</span>
+                        </div>
+                        
+                        <div class="pricing">
+                            <span class="old-price">£12.50</span>
+                            <span class="new-price">£9.99</span>
+                        </div>
+                        
+                        <button class="btn-primary add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                        
+                        <a href="menu.html#lunch" class="deal-link">View full details</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Deal Subscription -->
+        <section class="deal-subscription" aria-labelledby="subscribe-heading">
+            <div class="subscription-content">
+                <h2 id="subscribe-heading"><i class="fas fa-envelope"></i> Get Exclusive Deals</h2>
+                <p>Subscribe to receive weekly specials and <strong>£5 off your first order</strong></p>
+                
+                <form class="subscribe-form" id="deal-subscription-form">
+                    <div class="form-group">
+                        <label for="subscriber-email" class="sr-only">Email Address</label>
+                        <input type="email" id="subscriber-email" placeholder="Your email address" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        Subscribe <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                
+                <p class="small-print">We'll never spam you. Unsubscribe anytime. View our <a href="privacy.html">Privacy Policy</a>.</p>
+            </div>
+            <div class="subscription-image">
+                <img src="images/deal-newsletter.jpg" alt="Special offers newsletter" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Nutrition Info Modal -->
+        <div id="nutrition-modal" class="modal" aria-hidden="true">
+            <div class="modal-content">
+                <button class="close-modal" aria-label="Close nutrition information">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Nutritional Information</h3>
+                <div class="nutrition-details">
+                    <!-- Would be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Same footer as homepage -->
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Primary Meta Tags -->
+        <title>Chopup - Authentic Nigerian Food Delivery in London | Order Online</title>
+        <meta name="description" content="Order authentic Nigerian dishes like Jollof Rice, Egusi Soup & Suya for delivery across London. Fast delivery, traditional recipes, 5★ hygiene rated.">
+        <meta name="keywords" content="Nigerian food delivery, African food London, Jollof rice UK, Egusi soup delivery">
+      
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://chopup.co.uk/">
+        <meta property="og:title" content="Chopup - Authentic Nigerian Food Delivery in London">
+        <meta property="og:description" content="Get traditional Nigerian meals delivered fast across London. Order Jollof Rice, Pounded Yam & more today.">
+        <meta property="og:image" content="https://chopup.co.uk/images/social-preview.jpg">
+      
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Chopup - Nigerian Food Delivery UK">
+        <meta name="twitter:description" content="London's best Nigerian food delivery - authentic recipes, fast delivery">
+        <meta name="twitter:image" content="https://chopup.co.uk/images/social-twitter.jpg">
+      
+        <!-- Canonical URL -->
+        <link rel="canonical" href="https://chopup.co.uk/">
+      
+        <!-- Schema.org Structured Data -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FoodEstablishment",
+          "name": "Chopup",
+          "image": "https://chopup.uk/images/logo.jpg",
+          "priceRange": "££",
+          "servesCuisine": ["Nigerian", "West African"],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 London Street",
+            "addressLocality": "London",
+            "postalCode": "SW1A 1AA",
+            "addressCountry": "UK"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "51.5074",
+            "longitude": "0.1278"
+          }
+        }
+        </script>
+      </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chopup - Authentic Nigerian Cuisine Delivered Across the UK. Order Jollof Rice, Egusi Soup, Pounded Yam, and more.">
+    <title>Chopup - Authentic Nigerian Food Delivery UK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet.js for maps -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<!-- Leaflet Geocoder for address search -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<div class="cookie-banner">
+    <p>We use cookies to enhance your experience. By continuing, you agree to our <a href="/cookies">Cookie Policy</a>.</p>
+    <button id="accept-cookies" class="btn-small">Accept</button>
+  </div>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="images/chopup-logo.png" alt="Chopup - Nigerian Food Delivery" class="logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+            <li><a href="deals.html"><i class="fas fa-percent"></i> Deals</a></li>
+            <li><a href="order.html" class="cart-link"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="tel:+442079460958" class="btn-secondary"><i class="fas fa-phone"></i> Order Now</a>
+        </div>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+<main id="main-content">
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Authentic Nigerian Flavours Delivered to Your Door</h1>
+            <p class="subtitle">From our kitchen to your home - taste the real Nigeria</p>
+            <div class="hero-cta">
+                <a href="menu.html" class="btn-primary">Order Now</a>
+                <a href="#how-it-works" class="btn-secondary">How It Works</a>
+            </div>
+            <div class="trust-badges">
+                <div class="badge">
+                    <img src="images/5-star.png" alt="5 Star Rating">
+                    <span>500+ Happy Customers</span>
+                </div>
+                <div class="badge">
+                    <img src="icons/delivery-truck.svg" alt="Fast Delivery">
+                    <span>London & Surrounding Areas</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+<img src="images/jollof-hero-lowres.jpg" data-src="images/jollof-hero.png" 
+alt="Steaming Nigerian Jollof Rice with Chicken" class="lazyload">
+        </div>
+        
+            <!-- Delivery Checker with All Methods -->
+<div class="delivery-checker">
+    <h3><i class="fas fa-truck"></i> Check Delivery Availability</h3>
+    
+    <!-- Method Selector -->
+    <div class="delivery-methods">
+        <button class="method-btn active" data-method="postcode">
+            <i class="fas fa-envelope"></i> Postcode
+        </button>
+        <button class="method-btn" data-method="map">
+            <i class="fas fa-map-marker-alt"></i> Map
+        </button>
+        <button class="method-btn" data-method="address">
+            <i class="fas fa-search-location"></i> Address
+        </button>
+    </div>
+
+    <!-- Postcode Method -->
+    <div class="method-content" id="postcode-method">
+        <div class="input-group">
+            <input type="text" id="postcode-input" placeholder="e.g. SW1A 1AA">
+            <button id="check-postcode" class="btn-primary">
+                Check <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        <p class="input-hint">Enter your full UK postcode</p>
+    </div>
+
+    <!-- Map Method -->
+    <div class="method-content" id="map-method" style="display:none;">
+        <div id="delivery-map"></div>
+        <div class="map-controls">
+            <button id="locate-me" class="btn-small">
+                <i class="fas fa-location-arrow"></i> Use My Location
+            </button>
+            <p class="map-instructions">Click on your location or use GPS</p>
+        </div>
+    </div>
+
+    <!-- Address Method -->
+    <div class="method-content" id="address-method" style="display:none;">
+        <div class="input-group">
+            <input type="text" id="address-input" placeholder="Enter street address">
+            <button id="find-address" class="btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+        <div id="address-results" class="address-results"></div>
+    </div>
+
+    <!-- Results & Saved Locations -->
+    <div id="delivery-result" class="delivery-result">
+        <div id="result-content"></div>
+        <button id="save-location" class="btn-small" style="display:none;">
+            <i class="fas fa-bookmark"></i> Save This Location
+        </button>
+    </div>
+
+    <!-- Saved Locations Dropdown -->
+    <div id="saved-locations" class="saved-locations">
+        <h4><i class="fas fa-bookmark"></i> Saved Locations</h4>
+        <div id="saved-locations-list"></div>
+    </div>
+</div>
+    </header>
+
+    <section class="deals-preview">
+        <h2>This Week's Specials</h2>
+        <p class="section-subtitle">Limited-time offers</p>
+        
+        <div class="specials-grid">
+            <div class="special-card mama-special">
+                <div class="special-badge">Mama's Special</div>
+                <img src="images/efo-riro.jpg" alt="Efo Riro with Assorted Meat">
+                <div class="special-details">
+                    <h3>Efo Riro Feast</h3>
+                    <p class="description">Nigerian spinach stew with assorted meats & fish. Serves 2-3.</p>
+                    <div class="pricing">
+                        <span class="old-price">£24.99</span>
+                        <span class="new-price">£19.99</span>
+                    </div>
+                    <a href="deals.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            
+            <div class="special-card">
+                <img src="images/jollof-combo.jpg" alt="Jollof Rice Combo">
+                <div class="special-details">
+                    <h3>Jollof Party Pack</h3>
+                    <p class="description">Large jollof rice with chicken, plantains, and drinks.</p>
+                    <div class="pricing">
+                        <span class="old-price">£32.00</span>
+                        <span class="new-price">£26.99</span>
+                    </div>
+                    <a href="deals.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+        </div>
+        
+        <a href="deals.html" class="btn-secondary">See All Deals</a>
+    </section>
+
+    <!-- Featured Dishes -->
+    <section class="featured-dishes">
+        <h2>Our Signature Dishes</h2>
+        <p class="section-subtitle">Taste the authentic flavours of Nigeria</p>
+        <div class="dish-grid">
+            <div class="dish-card">
+                <img src="images/jollof-rice.jpg" alt="Nigerian Jollof Rice">
+                <div class="dish-info">
+                    <h3>Jollof Rice</h3>
+                    <p>The legendary West African dish cooked to perfection</p>
+                    <div class="price">From £9.99</div>
+                    <a href="menu.html#jollof" class="btn-small">Add to Cart</a>
+                </div>
+                <div class="popular-badge">Most Popular</div>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/egusi-soup.jpg" alt="Egusi Soup with Pounded Yam">
+                <div class="dish-info">
+                    <h3>Egusi Soup</h3>
+                    <p>Melon seed soup with assorted meats & fish</p>
+                    <div class="price">From £12.99</div>
+                    <a href="menu.html#egusi" class="btn-small">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/suya.jpg" alt="Nigerian Suya">
+                <div class="dish-info">
+                    <h3>Suya</h3>
+                    <p>Spicy grilled skewers with peanut seasoning</p>
+                    <div class="price">From £8.99</div>
+                    <a href="menu.html#suya" class="btn-small">Add to Cart</a>
+                </div>
+                <div class="spicy-badge">Spicy</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <h2>How Chopup Works</h2>
+        <p class="section-subtitle">Get authentic Nigerian meals in 3 easy steps</p>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <img src="icons/select-meal.svg" alt="Select your meal">
+                <h3>Choose Your Favorites</h3>
+                <p>Browse our authentic Nigerian menu</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <img src="icons/delivery.svg" alt="Delivery">
+                <h3>We Prepare & Deliver</h3>
+                <p>Freshly cooked and delivered hot</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <img src="icons/enjoy.svg" alt="Enjoy">
+                <h3>Enjoy Your Meal</h3>
+                <p>Taste the authentic flavors of Nigeria</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2>What Our Customers Say</h2>
+        <p class="section-subtitle">The taste of home away from home</p>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"The Jollof Rice took me straight back to Lagos! Best I've had outside Nigeria."</p>
+                <div class="customer">
+                    <img src="images/customer-ade.jpg" alt="Ade">
+                    <div>
+                        <h4>Ade</h4>
+                        <p>London</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Finally found proper Egusi Soup in the UK. The pounded yam is perfection!"</p>
+                <div class="customer">
+                    <img src="images/customer-chioma.jpg" alt="Chioma">
+                    <div>
+                        <h4>Chioma</h4>
+                        <p>Birmingham</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Taste Authentic Nigerian Cuisine?</h2>
+            <p>Order now and get £5 off your first order with code <strong>NAIJA5</strong></p>
+            <a href="menu.html" class="btn-primary">Order Now</a>
+        </div>
+    </section>
+</main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="images/chopup-logo-white.png" alt="Chopup Logo" class="footer-logo">
+                <p>Bringing authentic Nigerian flavors to the UK since 2023</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="delivery.html">Delivery Areas</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="allergens.html">Allergen Information</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 020 7946 0958</li>
+                    <li><i class="fas fa-envelope"></i> hello@chopup.co.uk</li>
+                    <li><i class="fas fa-map-marker-alt"></i> London, UK</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Chopup. All rights reserved.</p>
+            <p>Food Hygiene Rating: 5/5</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
