@@ -45,26 +45,20 @@
           }
         }
         </script>
-      </head>
-<head>
-    <meta charset="UTF-8">
+         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Chopup - Authentic Nigerian Cuisine Delivered Across the UK. Order Jollof Rice, Egusi Soup, Pounded Yam, and more.">
     <title>Chopup - Authentic Nigerian Food Delivery UK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lemon+Milk&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- Leaflet.js for maps -->
+    <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
-<!-- Leaflet Geocoder for address search -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
 <!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="js/delivery.js"></script>
+
 <div class="cookie-banner">
     <p>We use cookies to enhance your experience. By continuing, you agree to our <a href="/cookies">Cookie Policy</a>.</p>
     <button id="accept-cookies" class="btn-small">Accept</button>
@@ -113,69 +107,26 @@ alt="Steaming Nigerian Jollof Rice with Chicken" class="lazyload">
         </div>
         
             <!-- Delivery Checker with All Methods -->
-<div class="delivery-checker">
-    <h3><i class="fas fa-truck"></i> Check Delivery Availability</h3>
-    
-    <!-- Method Selector -->
-    <div class="delivery-methods">
-        <button class="method-btn active" data-method="postcode">
-            <i class="fas fa-envelope"></i> Postcode
-        </button>
-        <button class="method-btn" data-method="map">
-            <i class="fas fa-map-marker-alt"></i> Map
-        </button>
-        <button class="method-btn" data-method="address">
-            <i class="fas fa-search-location"></i> Address
-        </button>
-    </div>
-
-    <!-- Postcode Method -->
-    <div class="method-content" id="postcode-method">
+<section class="delivery-section">
+    <div class="delivery-checker">
+      <div id="deliveryMap" class="map-container"></div>
+      <div class="delivery-controls">
         <div class="input-group">
-            <input type="text" id="postcode-input" placeholder="e.g. SW1A 1AA">
-            <button id="check-postcode" class="btn-primary">
-                Check <i class="fas fa-arrow-right"></i>
-            </button>
+          <input type="text" id="postcodeInput" placeholder="Enter postcode (e.g. SW1A 1AA)" aria-label="Delivery postcode">
+          <button id="checkPostcode" class="btn-primary">Check</button>
         </div>
-        <p class="input-hint">Enter your full UK postcode</p>
-    </div>
-
-    <!-- Map Method -->
-    <div class="method-content" id="map-method" style="display:none;">
-        <div id="delivery-map"></div>
-        <div class="map-controls">
-            <button id="locate-me" class="btn-small">
-                <i class="fas fa-location-arrow"></i> Use My Location
-            </button>
-            <p class="map-instructions">Click on your location or use GPS</p>
-        </div>
-    </div>
-
-    <!-- Address Method -->
-    <div class="method-content" id="address-method" style="display:none;">
-        <div class="input-group">
-            <input type="text" id="address-input" placeholder="Enter street address">
-            <button id="find-address" class="btn-primary">
-                <i class="fas fa-search"></i> Search
-            </button>
-        </div>
-        <div id="address-results" class="address-results"></div>
-    </div>
-
-    <!-- Results & Saved Locations -->
-    <div id="delivery-result" class="delivery-result">
-        <div id="result-content"></div>
-        <button id="save-location" class="btn-small" style="display:none;">
-            <i class="fas fa-bookmark"></i> Save This Location
+        <p class="or-divider">or</p>
+        <button id="locateMe" class="btn-secondary">
+          <i class="fas fa-location-arrow"></i> Detect My Location
         </button>
+        <div id="deliveryResult" class="delivery-result"></div>
+      </div>
     </div>
-
-    <!-- Saved Locations Dropdown -->
-    <div id="saved-locations" class="saved-locations">
-        <h4><i class="fas fa-bookmark"></i> Saved Locations</h4>
-        <div id="saved-locations-list"></div>
-    </div>
-</div>
+  </section>
+  
+  <!-- Add these right before </body> -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="js/delivery.js"></script>
     </header>
 
     <section class="deals-preview">

@@ -331,422 +331,94 @@ document.querySelectorAll('.btn-small').forEach(btn => {
 });
 
 
-// Delivery Checker Functionality
-document.addEventListener("DOMContentLoaded", function() {
-    // Method Switcher
-    const methodBtns = document.querySelectorAll('.method-btn');
-    methodBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            methodBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            document.querySelectorAll('.method-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            
-            document.getElementById(`${this.dataset.method}-method`).style.display = 'block';
-            
-            // Initialize map when selected
-            if (this.dataset.method === 'map' && !window.mapInitialized) {
-                initMap();
-                window.mapInitialized = true;
-            }
-        });
-    });
-
-    // Postcode Checker
-    document.getElementById('check-postcode').addEventListener('click', checkPostcode);
-
-    // Address Lookup (using Mapbox API)
-    document.getElementById('find-address').addEventListener('click', searchAddress);
-});
-
-// Postcode Validation
-function checkPostcode() {
-    const postcode = document.getElementById('postcode-input').value.toUpperCase().replace(/\s/g, '');
-    const resultEl = document.getElementById('delivery-result');
+// Create this new file in js/delivery.js
+document.addEventListener('DOMContentLoaded', function() {
+    const map = L.map('deliveryMap').setView([51.505, -0.09], 12);
     
-    if (!validateUKPostcode(postcode)) {
-        showResult("Please enter a valid UK postcode (e.g. SW1A 1AA)", false);
-        return;
-    }
-    
-    // Mock API call - replace with actual backend integration
-    setTimeout(() => {
-        const canDeliver = mockPostcodeCheck(postcode);
-        if (canDeliver) {
-            showResult(`✅ We deliver to ${postcode}! <a href="menu.html" class="delivery-link">Order Now</a>`, true);
-        } else {
-            showResult("⚠️ Currently not serving this area. Check back soon!", false);
-        }
-    }, 800);
-}
-
-function validateUKPostcode(postcode) {
-    const regex = /^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/i;
-    return regex.test(postcode);
-}
-
-// Delivery Checker System
-document.addEventListener("DOMContentLoaded", function() {
-    // Initialize variables
-    let map, marker, deliveryZone;
-    const savedLocations = JSON.parse(localStorage.getItem('savedLocations')) || [];
-    
-    // Method Switcher
-    const methodBtns = document.querySelectorAll('.method-btn');
-    methodBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            methodBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            document.querySelectorAll('.method-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            
-            document.getElementById(`${this.dataset.method}-method`).style.display = 'block';
-            
-            // Initialize map when selected
-            if (this.dataset.method === 'map' && !map) {
-                initMap();
-            }
-        });
-    });
-
-    // Postcode Checker
-    document.getElementById('check-postcode').addEventListener('click', checkPostcode);
-    document.getElementById('postcode-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') checkPostcode();
-    });
-
-    // Address Search
-    document.getElementById('find-address').addEventListener('click', searchAddress);
-    document.getElementById('address-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') searchAddress();
-    });
-
-    // Location Services
-    document.getElementById('locate-me').addEventListener('click', locateUser);
-
-    // Save Location
-    document.getElementById('save-location').addEventListener('click', saveCurrentLocation);
-
-    // Load saved locations
-    renderSavedLocations();
-
-    // ========== FUNCTIONS ========== //
-
-    // Initialize Map (Leaflet)
-    function initMap() {
-        map = L.map('delivery-map').setView([51.505, -0.09], 13);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        
-        // Add geocoder control
-        L.Control.geocoder({
-            defaultMarkGeocode: false,
-            position: 'topright'
-        })
-        .on('markgeocode', function(e) {
-            map.fitBounds(e.geocode.bbox);
-            checkMapLocation(e.geocode.center);
-        })
-        .addTo(map);
-        
-        // Draw delivery zone (replace with your actual service area)
-        deliveryZone = L.circle([51.505, -0.09], {
-            color: '#E67E22',
-            fillColor: '#E67E22',
-            fillOpacity: 0.2,
-            radius: 3000
-        }).addTo(map);
-        
-        // Click handler
-        map.on('click', function(e) {
-            checkMapLocation(e.latlng);
-        });
-    }
-
-    // Postcode Validation
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+  
+    // Mock delivery zone (replace with your actual service area)
+    const deliveryZone = L.circle([51.505, -0.09], {
+      color: '#E67E22',
+      fillColor: '#f39c12',
+      fillOpacity: 0.3,
+      radius: 5000
+    }).addTo(map);
+  
+    document.getElementById('checkPostcode').addEventListener('click', checkPostcode);
+    document.getElementById('locateMe').addEventListener('click', locateUser);
+  
     function checkPostcode() {
-        const postcode = document.getElementById('postcode-input').value.toUpperCase().replace(/\s/g, '');
-        const resultEl = document.getElementById('result-content');
-        
-        if (!validateUKPostcode(postcode)) {
-            showResult("Please enter a valid UK postcode (e.g. SW1A 1AA)", false);
-            return;
-        }
-        
-        // Show loading state
-        showResult("<i class='fas fa-spinner fa-spin'></i> Checking delivery area...", true);
-        
-        // Simulate API call
-        setTimeout(() => {
-            const canDeliver = checkDeliveryZone(postcode);
-            if (canDeliver) {
-                const formattedPostcode = postcode.replace(/^(.{3})(.*)$/, '$1 $2');
-                showResult(
-                    `✅ We deliver to ${formattedPostcode}!<br>
-                    <a href="menu.html" class="delivery-link">
-                        <i class="fas fa-utensils"></i> Order Now
-                    </a>`, 
-                    true
-                );
-                document.getElementById('save-location').style.display = 'block';
-                // Store last valid location
-                currentLocation = { type: 'postcode', value: postcode };
-            } else {
-                showResult("⚠️ Currently not serving this area. Check back soon!", false);
-            }
-        }, 1000);
-    }
-
-    // Address Search (using OpenStreetMap Nominatim)
-    async function searchAddress() {
-        const query = document.getElementById('address-input').value.trim();
-        const resultsContainer = document.getElementById('address-results');
-        
-        if (!query) {
-            resultsContainer.innerHTML = '<div class="address-result">Please enter an address</div>';
-            return;
-        }
-        
-        showResult("<i class='fas fa-spinner fa-spin'></i> Searching addresses...", true);
-        
-        try {
-            // Using OpenStreetMap Nominatim API (free tier)
-            const response = await fetch(
-                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=5&countrycodes=gb`
-            );
-            const data = await response.json();
-            
-            if (data.length === 0) {
-                resultsContainer.innerHTML = '<div class="address-result">No addresses found</div>';
-                return;
-            }
-            
-            resultsContainer.innerHTML = data.map(item => `
-                <div class="address-result" data-lat="${item.lat}" data-lon="${item.lon}" data-address="${item.display_name}">
-                    <strong>${item.display_name.split(',')[0]}</strong><br>
-                    <small>${item.display_name.split(',').slice(1).join(',')}</small>
-                </div>
-            `).join('');
-            
-            // Add click handlers
-            document.querySelectorAll('.address-result').forEach(result => {
-                result.addEventListener('click', function() {
-                    const lat = parseFloat(this.dataset.lat);
-                    const lon = parseFloat(this.dataset.lon);
-                    const address = this.dataset.address;
-                    
-                    document.getElementById('address-input').value = address.split(',')[0];
-                    resultsContainer.innerHTML = '';
-                    
-                    if (!map) initMap();
-                    map.setView([lat, lon], 16);
-                    
-                    checkMapLocation({ lat, lng: lon }, address);
-                });
-            });
-            
-        } catch (error) {
-            console.error("Address search failed:", error);
-            resultsContainer.innerHTML = '<div class="address-result">Error searching addresses</div>';
-        }
-    }
-
-    // Map Location Check
-    function checkMapLocation(latlng, address = null) {
-        if (!map || !deliveryZone) return;
-        
-        // Clear previous marker
-        if (marker) map.removeLayer(marker);
-        
-        // Add new marker
-        marker = L.marker(latlng).addTo(map)
-            .bindPopup("Your location")
-            .openPopup();
-        
-        // Check if within delivery zone
-        const distance = deliveryZone.getLatLng().distanceTo(latlng);
-        const isInZone = distance <= deliveryZone.getRadius();
-        
-        // Show result
-        if (isInZone) {
-            const locationDesc = address || `latitude ${latlng.lat.toFixed(4)}, longitude ${latlng.lng.toFixed(4)}`;
-            showResult(
-                `✅ We deliver to this location!<br>
-                <small>${locationDesc}</small><br>
-                <a href="menu.html" class="delivery-link">
-                    <i class="fas fa-utensils"></i> Order Now
-                </a>`, 
-                true
-            );
-            document.getElementById('save-location').style.display = 'block';
-            // Store last valid location
-            currentLocation = { 
-                type: 'coordinates', 
-                value: { lat: latlng.lat, lng: latlng.lng },
-                address: address || null
-            };
-        } else {
-            showResult("⚠️ Outside our delivery zone", false);
-        }
-    }
-
-    // Geolocation
-    function locateUser() {
-        if (!navigator.geolocation) {
-            showResult("Geolocation is not supported by your browser", false);
-            return;
-        }
-        
-        showResult("<i class='fas fa-spinner fa-spin'></i> Locating...", true);
-        
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const latlng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                
-                if (!map) initMap();
-                map.setView(latlng, 16);
-                checkMapLocation(latlng, "Your current location");
-            },
-            error => {
-                showResult(`⚠️ Location access denied: ${error.message}`, false);
-            }
+      const postcode = document.getElementById('postcodeInput').value.trim();
+      const resultEl = document.getElementById('deliveryResult');
+      
+      if (!validatePostcode(postcode)) {
+        showResult('Please enter a valid UK postcode', false);
+        return;
+      }
+      
+      // Simulate API check
+      setTimeout(() => {
+        const canDeliver = checkDeliveryZone(postcode);
+        showResult(
+          canDeliver 
+            ? `✅ We deliver to ${postcode}! <a href="menu.html">Order Now</a>`
+            : "⚠️ Currently not serving this area",
+          canDeliver
         );
-    }
-
-    // Save Location
-    function saveCurrentLocation() {
-        if (!currentLocation) return;
         
-        const locationName = prompt("Name this location (e.g. Home, Work):");
-        if (!locationName) return;
-        
-        const newLocation = {
-            ...currentLocation,
-            name: locationName,
-            id: Date.now().toString()
-        };
-        
-        savedLocations.push(newLocation);
-        localStorage.setItem('savedLocations', JSON.stringify(savedLocations));
-        renderSavedLocations();
-        
-        showResult(`📍 Saved as "${locationName}"`, true);
-    }
-
-    // Render Saved Locations
-    function renderSavedLocations() {
-        const container = document.getElementById('saved-locations-list');
-        
-        if (savedLocations.length === 0) {
-            document.getElementById('saved-locations').style.display = 'none';
-            return;
+        if (canDeliver) {
+          map.flyTo([51.505, -0.09], 14);
         }
-        
-        document.getElementById('saved-locations').style.display = 'block';
-        container.innerHTML = savedLocations.map(loc => `
-            <div class="saved-location" data-id="${loc.id}">
-                <span>
-                    <strong>${loc.name}</strong><br>
-                    <small>${loc.type === 'postcode' 
-                        ? loc.value.replace(/^(.{3})(.*)$/, '$1 $2') 
-                        : (loc.address || `${loc.value.lat.toFixed(4)}, ${loc.value.lng.toFixed(4)}`)
-                    }</small>
-                </span>
-                <button class="use-location" title="Use this location">
-                    <i class="fas fa-map-marker-alt"></i>
-                </button>
-                <button class="delete-location" title="Remove">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `).join('');
-        
-        // Add event listeners
-        document.querySelectorAll('.use-location').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const locationId = this.closest('.saved-location').dataset.id;
-                const location = savedLocations.find(l => l.id === locationId);
-                useSavedLocation(location);
-            });
-        });
-        
-        document.querySelectorAll('.delete-location').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const locationId = this.closest('.saved-location').dataset.id;
-                deleteLocation(locationId);
-            });
-        });
+      }, 800);
     }
-
-    // Use Saved Location
-    function useSavedLocation(location) {
-        switch (location.type) {
-            case 'postcode':
-                document.getElementById('postcode-input').value = 
-                    location.value.replace(/^(.{3})(.*)$/, '$1 $2');
-                document.querySelector('.method-btn[data-method="postcode"]').click();
-                checkPostcode();
-                break;
-                
-            case 'coordinates':
-                if (!map) initMap();
-                const latlng = L.latLng(location.value.lat, location.value.lng);
-                map.setView(latlng, 16);
-                document.querySelector('.method-btn[data-method="map"]').click();
-                checkMapLocation(latlng, location.address || null);
-                break;
-        }
+  
+    function locateUser() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const userLocation = [position.coords.latitude, position.coords.longitude];
+            const distance = map.distance(userLocation, [51.505, -0.09]);
+            const canDeliver = distance <= 5000; // 5km radius
+            
+            map.flyTo(userLocation, 15);
+            L.marker(userLocation).addTo(map)
+              .bindPopup(`You are here (${canDeliver ? 'In' : 'Outside'} delivery zone)`);
+            
+            showResult(
+              canDeliver
+                ? "✅ We can deliver to your location!"
+                : "⚠️ Outside delivery range",
+              canDeliver
+            );
+          },
+          error => {
+            showResult("Location access denied. Please enter postcode.", false);
+          }
+        );
+      } else {
+        showResult("Geolocation not supported. Please enter postcode.", false);
+      }
     }
-
-    // Delete Location
-    function deleteLocation(id) {
-        const index = savedLocations.findIndex(l => l.id === id);
-        if (index !== -1) {
-            savedLocations.splice(index, 1);
-            localStorage.setItem('savedLocations', JSON.stringify(savedLocations));
-            renderSavedLocations();
-        }
+  
+    function validatePostcode(postcode) {
+      return /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i.test(postcode);
     }
-
-    // Helper Functions
-    function showResult(message, isSuccess) {
-        const resultEl = document.getElementById('result-content');
-        resultEl.innerHTML = message;
-        const container = document.getElementById('delivery-result');
-        container.className = `delivery-result ${isSuccess ? 'success' : 'error'}`;
-        container.style.display = 'block';
-        document.getElementById('save-location').style.display = 'none';
-    }
-
-    function validateUKPostcode(postcode) {
-        const regex = /^[A-Z]{1,2}[0-9][A-Z0-9]?[0-9][A-Z]{2}$/i;
-        return regex.test(postcode);
-    }
-
-    // Mock delivery zone check (replace with your actual service areas)
+  
     function checkDeliveryZone(postcode) {
-        const area = postcode.match(/^[A-Z]+/)[0];
-        const deliveryZones = {
-            'LONDON': ['SW', 'SE', 'NW', 'N', 'E', 'W', 'WC', 'EC'],
-            'MANCHESTER': ['M'],
-            'BIRMINGHAM': ['B']
-        };
-        
-        for (const [city, prefixes] of Object.entries(deliveryZones)) {
-            if (prefixes.includes(area)) return true;
-        }
-        return false;
+      const londonAreas = ['SW', 'SE', 'NW', 'N', 'E', 'W', 'WC', 'EC'];
+      const area = postcode.match(/^[A-Z]+/)?.[0];
+      return londonAreas.includes(area);
     }
-});
+  
+    function showResult(message, isSuccess) {
+      const resultEl = document.getElementById('deliveryResult');
+      resultEl.innerHTML = message;
+      resultEl.className = `delivery-result ${isSuccess ? 'success' : 'error'}`;
+    }
+  });
 
 function updateBreadcrumbs() {
     document.querySelector('.breadcrumbs').innerHTML = `
@@ -1051,3 +723,9 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector('.nav-links').classList.toggle('show');
     });
 });
+// Current mobile menu doesn't close after selection
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('show');
+    });
+  });
