@@ -3,6 +3,10 @@
     --maroon: #860B11;
     --desert-sand: #E6C7A3;
     --soft-beige: #FBFAE4;
+    --text-dark: #3A2E28;     
+    --maroon-light: #A34343;  
+    --gold: #D4AF37;
+
     
     /* Borders */
     --border-thick: 2px solid var(--maroon);
@@ -204,7 +208,7 @@ input, select, textarea {
 /* Hero Section */
 header.hero {
     background: url('hero-bg.jpg') no-repeat center center/cover;
-    color: var(--soft-beige);
+    color: var(--maroon-light);
     padding: 100px 20px;
     text-align: center;
 }
@@ -220,6 +224,30 @@ header.hero .btn-primary {
     border: none;
     cursor: pointer;
 }
+
+.rating-stars {
+    color: gold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+  }
+  
+  .rating-stars .fas {
+    margin: 0 2px; /* Small spacing between stars */
+  }
+
+
+.delivery-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dark); /* Your maroon color */
+    font-weight: bold;
+  }
+  
+  .delivery-badge .fa-truck {
+    font-size: 1.4rem;
+    color: var(--maroon);
+  }
 
 /* ===== UPDATED NAVBAR ===== */
 .navbar {
@@ -262,15 +290,29 @@ header.hero .btn-primary {
 .nav-links a.active {
     font-weight: 700;
     position: relative;
+    color: var(--maroon); /* Your maroon color */
+    font-weight: bold;
+    position: relative;
 }
 
 .nav-links a.active::after {
     content: '';
     position: absolute;
     bottom: -8px;
-    left: 12px;
+    left: 0px;
     width: calc(100% - 24px);
     height: 2px;
+    background: var(--soft-beige);
+    transition: fadIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scaleX(0); }
+    to { opacity: 1; transform: scaleY(1); }
+}
+
+.nav-links a.active .cart-count {
+    color: white;
     background: var(--maroon);
 }
 
@@ -409,6 +451,17 @@ header.hero .btn-primary {
     display: block;
 }
 
+.how-it-works .step i {
+    font-size: 2.5rem;
+    color: var(--maroon); /* Your brand color */
+    margin: 1rem 0;
+    transition: transform 0.3s;
+}
+
+.how-it-works .step:hover i {
+    transform: scale(1.1); /* Subtle hover effect */
+}
+
 /* Footer */
 footer {
     background: #333;
@@ -434,7 +487,7 @@ footer i {
     background: var(--maroon);
 }
 .btn-secondary {
-    background: #555;
+    background: var(--maroon-light);
     color: var(--soft-beige);
     padding: 5px 15px;
     border: none;
@@ -494,7 +547,7 @@ footer i {
     grid-template-columns: 80px 1fr auto;
     gap: 1rem;
     padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--maroon-light);
     align-items: center;
 }
 
@@ -701,7 +754,7 @@ footer i {
     text-align: center;
     position: relative;
     padding-top: 2rem;
-    color: var(--soft-beige);
+    color: var(--desert-sand);
 }
 
 .checkout-progress .step::before {
@@ -725,16 +778,16 @@ footer i {
     transform: translateX(-50%);
     width: 30px;
     height: 30px;
-    background: #ddd;
+    background: var(--desert-sand);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--maroon);
+    color: var(--maroon-light);
 }
 
 .checkout-progress .step.active {
-    color: var(--maroon);
+    color: var(--desert-sand);
 }
 
 .checkout-progress .step.active span {
@@ -776,7 +829,7 @@ footer i {
     position: absolute;
     top: -8px;
     right: -8px;
-    background: var(--maroon);
+    background: var(--desert-sand);
     color: white;
     width: 20px;
     height: 20px;
@@ -820,7 +873,7 @@ footer i {
     justify-content: center;
     gap: 2rem;
     padding: 1rem;
-    background: #f9f9f9;
+    background: ;
     margin-top: 2rem;
 }
 
@@ -871,7 +924,7 @@ footer i {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, #FFF8F0 0%, #FFEDDE 100%);
+    background: var(--maroon-light);
 }
 
 .hero-content h1 {

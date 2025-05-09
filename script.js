@@ -729,3 +729,23 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       document.querySelector('.nav-links').classList.remove('show');
     });
   });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get current page filename (e.g., "index.html" or "menu.html")
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Select all navigation links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    // Loop through each link and add 'active' class if it matches current page
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+            
+            // Also highlight the cart link if on checkout page
+            if (currentPage === 'checkout.html') {
+                document.querySelector('.cart-link').classList.add('active');
+            }
+        }
+    });
+});
