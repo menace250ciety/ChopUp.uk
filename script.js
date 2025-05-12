@@ -1,3 +1,24 @@
+// Mobile Menu Toggle - Add this at the top of your script.js
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+    }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const accountDropdown = document.getElementById("accountDropdown");
 
@@ -599,85 +620,114 @@ document.addEventListener("DOMContentLoaded", function() {
     searchInput.addEventListener('input', filterMenuItems);
     
     // Filter function
-    function filterMenuItems() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
-        const selectedPrices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(cb => cb.value);
-        
-        let visibleItems = 0;
-        let visibleSections = 0;
-        
+   // Replace the filterMenuItems() function (around line ~1300) with:
+function filterMenuItems() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+    const selectedPrices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(cb => cb.value);
+    
+    // If no filters are selected AND no search term, show everything
+    if (searchTerm === '' && selectedCategories.length === 0 && selectedPrices.length === 0) {
         menuSections.forEach(section => {
-            const category = section.dataset.category;
-            let sectionVisible = false;
-            let sectionItems = 0;
+            section.style.display = 'block';
+            section.querySelectorAll('.menu-card').forEach(card => {
+                card.style.display = 'flex';
+            });
+        });
+        noResults.style.display = 'none';
+        resultsCount.textContent = 'All dishes';
+        return;
+    }
+    
+    let visibleItems = 0;
+    let visibleSections = 0;
+    
+    menuSections.forEach(section => {
+        const category = section.dataset.category;
+        let sectionVisible = false;
+        let sectionItems = 0;
+        
+        // Show section if no category filters OR if category is selected
+        const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category);
+        
+        if (categoryMatch) {
+            const cards = section.querySelectorAll('.menu-card');
             
-            // Filter by category
-            if (selectedCategories.includes(category)) {
-                const cards = section.querySelectorAll('.menu-card');
+            cards.forEach(card => {
+                const price = parseInt(card.dataset.price);
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const description = card.querySelector('.description').textContent.toLowerCase();
                 
-                cards.forEach(card => {
-                    const price = parseInt(card.dataset.price);
-                    const title = card.querySelector('h4').textContent.toLowerCase();
-                    const description = card.querySelector('.description').textContent.toLowerCase();
-                    
-                    // Filter by price range
-                    let priceMatch = false;
+                // Price filter logic (only if prices are selected)
+                let priceMatch = selectedPrices.length === 0;
+                if (!priceMatch) {
                     selectedPrices.forEach(range => {
                         const [min, max] = range.split('-').map(Number);
                         if (max && price >= min && price <= max) priceMatch = true;
                         else if (!max && price >= min) priceMatch = true;
                     });
-                    
-                    // Filter by search term
-                    const searchMatch = searchTerm === '' || 
-                                      title.includes(searchTerm) || 
-                                      description.includes(searchTerm);
-                    
-                    if (priceMatch && searchMatch) {
-                        card.style.display = 'flex';
-                        visibleItems++;
-                        sectionItems++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                if (sectionItems > 0) {
-                    section.style.display = 'block';
-                    visibleSections++;
-                } else {
-                    section.style.display = 'none';
                 }
+                
+                // Search term logic
+                const searchMatch = searchTerm === '' || 
+                                  title.includes(searchTerm) || 
+                                  description.includes(searchTerm);
+                
+                if (priceMatch && searchMatch) {
+                    card.style.display = 'flex';
+                    visibleItems++;
+                    sectionItems++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (sectionItems > 0) {
+                section.style.display = 'block';
+                visibleSections++;
             } else {
                 section.style.display = 'none';
             }
-        });
-        
-        // Update results count
-        if (visibleItems === 0) {
-            noResults.style.display = 'flex';
-            resultsCount.textContent = 'No dishes found';
         } else {
-            noResults.style.display = 'none';
-            resultsCount.textContent = `${visibleItems} dishes in ${visibleSections} categories`;
+            section.style.display = 'none';
         }
-    }
+    });
     
-    // Reset all filters
+    // Update results UI
+    if (visibleItems === 0) {
+        noResults.style.display = 'flex';
+        resultsCount.textContent = 'No dishes found';
+    } else {
+        noResults.style.display = 'none';
+        const filterText = searchTerm || selectedCategories.length || selectedPrices.length 
+            ? `${visibleItems} matching dishes` 
+            : 'All dishes';
+        resultsCount.textContent = filterText;
+    }
+}
+    
     function resetAllFilters() {
-        // Reset checkboxes
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            cb.checked = true;
-        });
-        
-        // Reset search
-        searchInput.value = '';
-        
-        // Apply reset
-        filterMenuItems();
-    }
+    // Uncheck all filters
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+    });
     
+    // Clear search
+    searchInput.value = '';
+    
+    // Show all items
+    filterMenuItems();
+}
+    // Update the applyFilters click handler
+applyFilters.addEventListener('click', function() {
+    if (document.querySelectorAll('input[type="checkbox"]:checked').length > 0) {
+        filterMenuItems();
+        filterOptions.classList.remove('show');
+    } else {
+        alert('Please select at least one filter');
+    }
+});
+
     // Initialize
     filterMenuItems();
     
@@ -748,4 +798,48 @@ document.querySelectorAll('.nav-links a').forEach(link => {
             }
         }
     });
+});
+
+// Separate toggle functionality
+document.getElementById('search-toggle').addEventListener('click', function() {
+    const search = document.getElementById('search-container');
+    const filters = document.getElementById('filter-container');
+    
+    search.classList.toggle('expanded');
+    filters.classList.remove('expanded');
+    
+    // Update icons
+    const searchIcon = this.querySelector('i');
+    if (search.classList.contains('expanded')) {
+        searchIcon.classList.replace('fa-search', 'fa-times');
+        this.innerHTML = '<i class="fas fa-times"></i> Close';
+    } else {
+        searchIcon.classList.replace('fa-times', 'fa-search');
+        this.innerHTML = '<i class="fas fa-search"></i> Search';
+    }
+});
+
+document.getElementById('filter-toggle').addEventListener('click', function() {
+    const filters = document.getElementById('filter-container');
+    const search = document.getElementById('search-container');
+    
+    filters.classList.toggle('expanded');
+    search.classList.remove('expanded');
+    
+    // Update icons
+    const filterIcon = this.querySelector('i');
+    if (filters.classList.contains('expanded')) {
+        filterIcon.classList.replace('fa-filter', 'fa-times');
+        this.innerHTML = '<i class="fas fa-times"></i> Close';
+    } else {
+        filterIcon.classList.replace('fa-times', 'fa-filter');
+        this.innerHTML = '<i class="fas fa-filter"></i> Filters';
+    }
+});
+
+// Keep existing filter application logic
+document.getElementById('apply-filters').addEventListener('click', function() {
+    filterMenuItems();
+    document.getElementById('filter-container').classList.remove('expanded');
+    document.getElementById('filter-toggle').innerHTML = '<i class="fas fa-filter"></i> Filters';
 });

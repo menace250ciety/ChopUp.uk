@@ -9,109 +9,205 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" class="logo-container">
-            <img src="images/ChopUp Primary Logo 2.jpg" alt="Chopup - Nigerian Food Delivery" class="logo">
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
-            <li><a href="deals.html"><i class="fas fa-percent"></i> Deals</a></li>
-            <li><a href="order.html" class="cart-link"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a></li>
-        </ul>
-        <div class="nav-actions">
-            <a href="tel:+442079460958" class="btn-secondary"><i class="fas fa-phone"></i> Order Now</a>
-        </div>
-        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-    </nav>
+    <a href="index.html" class="logo-container">
+        <img src="images/ChopUp Primary Logo 2.jpg" alt="Chopup Logo" class="logo">
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+        <li><a href="deals.html"><i class="fas fa-percent"></i> Deals</a></li>
+        <li><a href="order.html" class="cart-link"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a></li>
+    </ul>
+    
+    <div class="nav-actions">
+        <a href="tel:+442079460958" class="btn-secondary"><i class="fas fa-phone"></i> Order Now</a>
+    </div>
+    
+    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+</nav>
 
     <main class="menu-page">
         <!-- Search and Filter Section -->
-        <section class="menu-controls">
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" id="menu-search" placeholder="Search dishes...">
-                <button id="clear-search" class="btn-small"><i class="fas fa-times"></i></button>
+<section class="menu-controls">
+    <div class="controls-header">
+        <h2><i class="fas fa-utensils"></i> Our Canapés Menu</h2>
+        <div class="control-buttons">
+            <button id="search-toggle" class="btn-small">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <button id="filter-toggle" class="btn-small">
+                <i class="fas fa-filter"></i> Filters
+            </button>
+        </div>
+    </div>
+    
+    <!-- Collapsible Search -->
+    <div id="search-container" class="collapsible-section">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="menu-search" placeholder="Search dishes...">
+            <button id="clear-search" class="btn-tiny"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+    
+    <!-- Collapsible Filters -->
+    <div id="filter-container" class="collapsible-section">
+        <div class="filter-options">
+            <div class="filter-group">
+                <h4>Categories</h4>
+                <label><input type="checkbox" name="category" value="savoury" checked> Savoury</label>
+                <label><input type="checkbox" name="category" value="sweets" checked> Sweet Treats</label>
             </div>
-            
-            <div class="filter-container">
-                <div class="filter-dropdown">
-                    <button class="filter-btn"><i class="fas fa-filter"></i> Filter <i class="fas fa-chevron-down"></i></button>
-                    <div class="filter-options">
-                        <div class="filter-group">
-                            <h4>Categories</h4>
-                            <label><input type="checkbox" name="category" value="sides" checked> Sides</label>
-                            <label><input type="checkbox" name="category" value="mains" checked> Mains</label>
-                            <label><input type="checkbox" name="category" value="snacks" checked> Snacks</label>
-                            <label><input type="checkbox" name="category" value="protein" checked> Protein</label>
-                            <label><input type="checkbox" name="category" value="soup" checked> Soups</label>
-                            <label><input type="checkbox" name="category" value="stew" checked> Stews</label>
-                            <label><input type="checkbox" name="category" value="swallow" checked> Swallow</label>
-                        </div>
-                        <div class="filter-group">
-                            <h4>Price Range</h4>
-                            <label><input type="checkbox" name="price" value="0-5"> £0 - £5</label>
-                            <label><input type="checkbox" name="price" value="6-10"> £6 - £10</label>
-                            <label><input type="checkbox" name="price" value="11-15"> £11 - £15</label>
-                            <label><input type="checkbox" name="price" value="16+" checked> £16+</label>
-                        </div>
-                        <button id="apply-filters" class="btn-primary">Apply Filters</button>
-                    </div>
-                </div>
-                <button id="reset-filters" class="btn-secondary">Reset</button>
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <label><input type="checkbox" name="price" value="0-4"> £0 - £4</label>
+                <label><input type="checkbox" name="price" value="4-6"> £4 - £6</label>
+                <label><input type="checkbox" name="price" value="6-10"> £6+</label>
             </div>
-        </section>
+        </div>
+        <button id="apply-filters" class="btn-small">Apply</button>
+    </div>
+</section>
 
         <!-- Menu Sections -->
-        <section class="menu-sections">
-            <!-- Results Count -->
-            <div class="results-count">
-                <span id="filter-results">All dishes</span>
-            </div>
-            
-            <!-- Menu Items will be dynamically inserted here -->
-            <div id="menu-items-container">
-                <!-- Sides -->
-                <div class="menu-section" data-category="sides">
-                    <h3>Sides</h3>
-                    <div class="menu-grid">
-                        <div class="menu-card" data-price="10">
-                            <img src="images/fried-yam.jpg" alt="Fried Yam and Sauce">
-                            <div class="menu-card-content">
-                                <h4>Fried Yam and Sauce</h4>
-                                <p class="description">Crispy fried yam served with spicy Nigerian sauce</p>
-                                <div class="price-add">
-                                    <p class="price">£10</p>
-                                    <button class="btn-secondary add-to-cart">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- More side items... -->
+
+<section class="menu-sections">
+    <!-- Results Count -->
+    <div class="results-count">
+        <span id="filter-results">All dishes</span>
+    </div>
+    
+    <!-- Savoury Canapés -->
+    <div class="menu-section" data-category="savoury">
+        <h3>🔥 Savoury Canapés</h3>
+        <div class="menu-grid">
+            <!-- Veg or Beef Samosa -->
+            <div class="menu-card" data-price="4.50">
+                <img src="images/samosa.webp" alt="Veg or Beef Samosa">
+                <div class="menu-card-content">
+                    <h4>Veg or Beef Samosa</h4>
+                    <p class="description">Golden triangular pastries filled with spiced vegetables or minced beef</p>
+                    <div class="price-add">
+                        <p class="price">£4.50</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
                     </div>
                 </div>
-                
-                <!-- Mains -->
-                <div class="menu-section" data-category="mains">
-                    <h3>Mains</h3>
-                    <div class="menu-grid">
-                        <div class="menu-card" data-price="10">
-                            <img src="images/beef-fried-rice.jpg" alt="Beef Fried Rice">
-                            <div class="menu-card-content">
-                                <h4>Beef Fried Rice</h4>
-                                <p class="description">Flavorful fried rice with tender beef pieces</p>
-                                <div class="price-add">
-                                    <p class="price">£10</p>
-                                    <button class="btn-secondary add-to-cart">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- More main items... -->
+            </div>
+
+            <!-- Vegetable Spring Rolls -->
+            <div class="menu-card" data-price="4.00">
+                <img src="images/spring-rolls.webp" alt="Vegetable Spring Rolls">
+                <div class="menu-card-content">
+                    <h4>Vegetable Spring Rolls</h4>
+                    <p class="description">Crisp rolls with seasoned vegetables and sweet chilli dip</p>
+                    <div class="price-add">
+                        <p class="price">£4.00</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
                     </div>
                 </div>
-                
-                <!-- Other sections (snacks, protein, soups, stews, swallow) -->
-                <!-- ... -->
             </div>
-            
+
+            <!-- Beef Suya Skewers -->
+            <div class="menu-card" data-price="5.50">
+    <span class="menu-badge spicy-badge">Spicy</span>
+    <img src="images/suya-2.jpg" alt="Beef Suya Skewers">
+    <div class="menu-card-content">
+        <h4>Beef Suya Skewers</h4>
+        <p class="description">Tender chunks of beef marinated in traditional Suya spice, served with fresh veggies</p>
+        <div class="price-add">
+            <p class="price">£5.50</p>
+            <button class="btn-secondary add-to-cart">Add</button>
+        </div>
+    </div>
+</div>
+
+            <!-- Jerk Chicken Croquette -->
+            <div class="menu-card" data-price="5.00">
+                <img src="images/jerk-croquette1.jpeg" alt="Jerk Chicken Croquette">
+                <div class="menu-card-content">
+                    <h4>Jerk Chicken Croquette</h4>
+                    <p class="description">With pineapple & chilli jam</p>
+                    <div class="price-add">
+                        <p class="price">£5.00</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plantain Gizzard Pots -->
+            <div class="menu-card" data-price="5.75">
+                <img src="images/plantain-pots.jpeg" alt="Plantain Gizzard Pots">
+                <div class="menu-card-content">
+                    <h4>Plantain Gizzard Pots</h4>
+                    <p class="description">With avocado salsa sauce</p>
+                    <div class="price-add">
+                        <p class="price">£5.75</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lemon-Garlic Prawns -->
+            <div class="menu-card" data-price="6.25">
+                <img src="images/lemon-prawns.webp" alt="Lemon-Garlic Prawns">
+                <div class="menu-card-content">
+                    <h4>Lemon-Garlic Butter Prawns</h4>
+                    <p class="description">With tomato salsa fresca</p>
+                    <div class="price-add">
+                        <p class="price">£6.25</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sweet Treats -->
+    <div class="menu-section" data-category="sweets">
+        <h3>🍬 Sweet Treats</h3>
+        <div class="menu-grid">
+            <!-- Classic Puff Puff -->
+            <div class="menu-card" data-price="3.00">
+                <img src="images/puff-puff.webp" alt="Classic Puff Puff">
+                <div class="menu-card-content">
+                    <h4>Puff Puff (Classic)</h4>
+                    <p class="description">Light and airy West African dough balls</p>
+                    <div class="price-add">
+                        <p class="price">£3.00</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cinnamon Puff Puff -->
+            <div class="menu-card" data-price="3.50">
+                <img src="images/puff-puff1.webp" alt="Cinnamon Puff Puff">
+                <div class="menu-card-content">
+                    <h4>Puff Puff (Cinnamon Sugar)</h4>
+                    <p class="description">Warm with spiced cinnamon coating</p>
+                    <div class="price-add">
+                        <p class="price">£3.50</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Whipped Cream Puff Puff -->
+            <div class="menu-card" data-price="4.00">
+                <img src="images/puff-puff2.webp" alt="Whipped Cream Puff Puff">
+                <div class="menu-card-content">
+                    <h4>Puff Puff (Whipped Cream)</h4>
+                    <p class="description">With grilled pineapple</p>
+                    <div class="price-add">
+                        <p class="price">£4.00</p>
+                        <button class="btn-secondary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
             <!-- No Results Message -->
             <div id="no-results" class="no-results">
                 <i class="fas fa-utensils"></i>
