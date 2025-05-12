@@ -1,20 +1,29 @@
-// Mobile Menu Toggle - Add this at the top of your script.js
+// Mobile Menu Toggle - Single implementation
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
     if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             navLinks.classList.toggle('show');
             this.classList.toggle('active');
         });
         
-        // Close menu when clicking on nav links
+        // Close menu when clicking on links
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('show');
                 mobileMenuBtn.classList.remove('active');
             });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) {
+                navLinks.classList.remove('show');
+                mobileMenuBtn.classList.remove('active');
+            }
         });
     }
 });
